@@ -140,6 +140,10 @@ class mainUI(object):
         leagueList = self.calGen.getLeagues(federation)
         league = self.getUserSelection(leagueList)
 
+        #select team
+        teamList = self.calGen.getTeams(federation, league)
+        team = self.getUserSelection(teamList)
+
     def myTeams(self):
         self.scr.clear()
         self.scr.addstr(0,0,"Team view not available yet")

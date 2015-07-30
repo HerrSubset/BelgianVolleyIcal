@@ -30,6 +30,15 @@ class calendarGenerator(object):
 
         return res
 
+    def getTeams(self, federation, league):
+        res = None
+
+        for f in self.federations:
+            if f.getName() == federation:
+                res = f.getTeams(league)
+
+        return res
+
 
 
 
@@ -62,6 +71,15 @@ class Federation(object):
 
         return res
 
+    def getTeams(self, league):
+        res = None
+
+        for l in self.leagues:
+            if l.getName() == league:
+                res = l.getTeams()
+
+        return res
+
 
 
 
@@ -88,7 +106,7 @@ class League(object):
     def addGame(self, game):
         self.games.append(game)
 
-    def getLeagueClubs(self):
+    def getTeams(self):
         res = []
 
         for g in self.games:

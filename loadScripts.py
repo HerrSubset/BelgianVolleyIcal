@@ -37,7 +37,7 @@ def testLS():
 
     date = DT.datetime(2015, 9, 16, 20, 30)
     game = DOM.Game("vvbteam2ligab", "vvbteam3ligab", date, "sportshall")
-    league1.addGame(game)
+    league2.addGame(game)
 
     res.append(league2)
 
@@ -48,6 +48,7 @@ def testLS():
 
 
 def testLS2():
+    res = []
     league1 = DOM.League("1e provinciale")
 
     date = DT.datetime(2015, 9, 15, 20, 30)
@@ -61,3 +62,7 @@ def testLS2():
     date = DT.datetime(2015, 9, 16, 20, 30)
     game = DOM.Game("avfteam2", "avfteam3", date, "sportshall")
     league1.addGame(game)
+
+    res.append(league1)
+
+    return res
