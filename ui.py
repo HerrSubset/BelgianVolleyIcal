@@ -128,6 +128,15 @@ class mainUI(object):
         self.scr.addstr(dimensions[0]-2,0, "Enter your selection: " + msg)
         self.scr.move(dimensions[0] - 1, 0)
 
+    def printTeamCalendar(self, teamCal):
+        self.scr.clear()
+
+        for i in range(0, len(teamCal)):
+            self.scr.addstr(i,0, teamCal[i].toString())
+
+        self.scr.getch()
+
+
     #####################
     # Menu actions
     #####################
@@ -143,6 +152,10 @@ class mainUI(object):
         #select team
         teamList = self.calGen.getTeams(federation, league)
         team = self.getUserSelection(teamList)
+
+        #print team Calendar
+        calendar = self.calGen.getTeamCalendar(federation, league, team)
+        self.printTeamCalendar(calendar)
 
     def myTeams(self):
         self.scr.clear()
