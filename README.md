@@ -3,3 +3,4 @@ Een programma dat informatie van de verschillende volleybalfederaties omzet naar
 
 ## Dependencies
 * Requests (pip install requests)
+* Beautifulsoup4 (pip install Beautifulsoup4)
