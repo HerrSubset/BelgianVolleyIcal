@@ -23,7 +23,7 @@ def VVBLoadScript():
 
     #parse html data with bs4
     html = r.text
-    bs = BeautifulSoup(html)
+    bs = BeautifulSoup(html, "html.parser")
 
     #find the correct starting element
     form = bs.find("form", method="post")
@@ -128,3 +128,34 @@ def classEquals(element, className):
         res = False
 
     return res
+
+
+
+
+################################################################################
+################################################################################
+## AVF loading script and helper functions
+################################################################################
+################################################################################
+def VVBLoadScript():
+    leagues = []
+
+    #download game data from the web
+    dates = {"v" : "2015-08-01", "t" : "2016-07-01"}
+    r = requests.get("http://volley-avf.be/bolt/kalenders", params=dates)
+
+    #parse data with bs4
+    html = r.text
+    bs = BeautifulSoup(html, "html.parser")
+
+    #find starting elements
+    table = bs.find("table")
+    tr = table.find("tr")
+
+    #initialize and start loop
+    go = True
+
+    while go:
+        go = False
+
+    return leagues
