@@ -10,7 +10,7 @@ class calendarGenerator(object):
     def __init__(self):
         self.federations = []
 
-        self.federations.append(Federation(LS.testLS, "VVB"))
+        self.federations.append(Federation(LS.VVBLoadScript, "VVB"))
         self.federations.append(Federation(LS.testLS2, "AVF"))
 
     def getFederations(self):
