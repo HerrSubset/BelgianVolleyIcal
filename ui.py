@@ -37,9 +37,9 @@ class mainUI(object):
 
 
 
-    #####################
+    ##############################################
     # Menu helper functions
-    #####################
+    ##############################################
 
     #updates the selected item based on what key was pressed
     def updateSelectedItem(self, key):
@@ -60,9 +60,11 @@ class mainUI(object):
         #apply the change
         self.selectedItem = curSel
 
+
     #Checks if the given key is a valid selection key
     def isSelectionKey(self, key):
         return (key == "\n" or key == "KEY_RIGHT")
+
 
     #clears the screen and applies standard menu decorations
     def clearAndDecorate(self):
@@ -71,6 +73,7 @@ class mainUI(object):
 
         for i in range(0,size[0]):
             self.scr.addstr(i,0,"......")
+
 
     #Draws a standard menu
     def drawMenu(self):
@@ -82,9 +85,9 @@ class mainUI(object):
 
             self.scr.addstr(i+2, 0, prefix+ self.menuItems[i])
 
-    #####################
+    ##############################################
     # Selection screen functions
-    #####################
+    ##############################################
 
     #main function to let a user select an item out of a list
     def getUserSelection(self, items):
@@ -119,6 +122,8 @@ class mainUI(object):
 
         return res
 
+
+    #draws the items of a given array and a prompt with an optional message
     def drawItems(self, items, msg=""):
         dimensions = self.scr.getmaxyx()
         self.scr.clear()
@@ -128,7 +133,10 @@ class mainUI(object):
         self.scr.addstr(dimensions[0]-2,0, "Enter your selection: " + msg)
         self.scr.move(dimensions[0] - 1, 0)
 
+
+    #prints a team calendar to the screen
     def printTeamCalendar(self, teamCal):
+        #TODO: make list scrollable if screen is too small
         self.scr.clear()
 
         for i in range(0, len(teamCal)):
@@ -137,9 +145,11 @@ class mainUI(object):
         self.scr.getch()
 
 
-    #####################
+    ##############################################
     # Menu actions
-    #####################
+    ##############################################
+
+    #Generates a calendar for a team
     def generateCalendar(self):
         #select federation
         fedList = self.calGen.getFederations()
@@ -157,11 +167,15 @@ class mainUI(object):
         calendar = self.calGen.getTeamCalendar(federation, league, team)
         self.printTeamCalendar(calendar)
 
+
+    #handles the "my teams" functionality
     def myTeams(self):
         self.scr.clear()
         self.scr.addstr(0,0,"Team view not available yet")
         self.scr.getch()
 
+
+    #syncs calendars to google
     def syncToGoogle(self):
         self.scr.clear()
         self.scr.addstr(0,0,"Google syncing not available yet")

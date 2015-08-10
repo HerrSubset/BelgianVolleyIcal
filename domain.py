@@ -11,8 +11,9 @@ class calendarGenerator(object):
         self.federations = []
 
         self.federations.append(Federation(LS.VVBLoadScript, "VVB"))
-        self.federations.append(Federation(LS.testLS2, "AVF"))
 
+
+    #return the names of the available federations
     def getFederations(self):
         res = []
 
@@ -21,6 +22,8 @@ class calendarGenerator(object):
 
         return res
 
+
+    #return the names of the available leagues belonging to a certain federation
     def getLeagues(self, federation):
         res = None
 
@@ -30,6 +33,8 @@ class calendarGenerator(object):
 
         return res
 
+
+    #return the team names that play in a certain league
     def getTeams(self, federation, league):
         res = None
 
@@ -39,6 +44,8 @@ class calendarGenerator(object):
 
         return res
 
+
+    #return the games that a certain team plays
     def getTeamCalendar(self, federation, league, team):
         res = None
 
@@ -66,12 +73,13 @@ class Federation(object):
 
         self.leagues = self.loadScript()
 
+
+    #returns the federation name
     def getName(self):
         return self.fedName
 
-    def getCalendars(self):
-        return self.calendars
 
+    #returns the league names belonging to a federation
     def getLeagues(self):
         res = []
 
@@ -80,6 +88,8 @@ class Federation(object):
 
         return res
 
+
+    #returns the teamnames playing in the given league
     def getTeams(self, league):
         res = None
 
@@ -89,6 +99,8 @@ class Federation(object):
 
         return res
 
+
+    #returns the calendar for the given team
     def getTeamCalendar(self, league, team):
         res = None
 
@@ -114,16 +126,20 @@ class League(object):
         self.name = name
         self.games = []
 
+
     #getters
     def getName(self):
         return self.name
     def getGames(self):
         return self.getGames
 
+
     #other Functions
     def addGame(self, game):
         self.games.append(game)
 
+
+    #constructs and returns a list with all the team names
     def getTeams(self):
         res = []
 
@@ -135,6 +151,8 @@ class League(object):
 
         return res
 
+
+    #constructs the calendar for the given team
     def getTeamCalendar(self, team):
         res = []
 

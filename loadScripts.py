@@ -7,11 +7,21 @@ import domain as DOM
 import requests
 from bs4 import BeautifulSoup
 
+
+################################################################################
+################################################################################
+## VVB loading script and helper functions
+################################################################################
+################################################################################
 def VVBLoadScript():
     leagues = []
 
-    r = requests.post("http://www.volleyvvb.be/competitie-wedstrijden", data={"Reeks": "%", "Stamnummer": "%", "Week":"0"})
+    #download the data from the web
+    postparams = {"Reeks": "%", "Stamnummer": "%", "Week":"0"}
+    vvbUrl = "http://www.volleyvvb.be/competitie-wedstrijden"
+    r = requests.post(vvbUrl, data=postparams)
 
+    #parse html data with bs4
     html = r.text
     bs = BeautifulSoup(html)
 
@@ -38,6 +48,7 @@ def VVBLoadScript():
             tr = tr.next_sibling
 
     return leagues
+
 
 
 
@@ -76,11 +87,17 @@ def createNewGame(row):
     return DOM.Game(homeTeam.lower(), awayTeam.lower(), date, location)
 
 
+
+
+# Strip the final letter that the VVB adds to team names if a club has
+# more than one team playing in a VVB league
 def cutTeamLetter(team):
     res = team
     if res[-2] == " ":
         res = res[0:-2]
     return res
+
+
 
 
 #check if the given row contains a game
@@ -89,11 +106,15 @@ def containsGame(row):
     return classEquals(td, "wedstrijd")
 
 
+
+
 #checks if the given tr starts a new division by checking if the tr has a td
 #with the "vvb_titel2" class
 def startsNewDivision(row):
     td = row.find("td")
     return classEquals(td, "vvb_titel2")
+
+
 
 
 #check if the class of an element equals to the given classname
@@ -105,73 +126,5 @@ def classEquals(element, className):
             res = True
     except KeyError as err:     #handle error if element has no class
         res = False
-
-    return res
-
-
-
-
-#####################################################
-# Test loading scripts
-#####################################################
-def testLS():
-    res = []
-    #first test league
-    league1 = DOM.League("Liga A")
-
-    date = DT.datetime(2015, 9, 15, 20, 30)
-    game = DOM.Game("vvbteam1", "vvbteam2", date, "sportshall")
-    league1.addGame(game)
-
-    date = DT.datetime(2015, 9, 16, 20, 30)
-    game = DOM.Game("vvbteam1", "vvbteam3", date, "sportshall")
-    league1.addGame(game)
-
-    date = DT.datetime(2015, 9, 16, 20, 30)
-    game = DOM.Game("vvbteam2", "vvbteam3", date, "sportshall")
-    league1.addGame(game)
-
-    res.append(league1)
-
-    #second test league
-    league2 = DOM.League("Liga B")
-
-    date = DT.datetime(2015, 9, 15, 20, 30)
-    game = DOM.Game("vvbteam1ligab", "vvbteam2ligab", date, "sportshall")
-    league2.addGame(game)
-
-    date = DT.datetime(2015, 9, 16, 20, 30)
-    game = DOM.Game("vvbteam1ligab", "vvbteam3ligab", date, "sportshall")
-    league2.addGame(game)
-
-    date = DT.datetime(2015, 9, 16, 20, 30)
-    game = DOM.Game("vvbteam2ligab", "vvbteam3ligab", date, "sportshall")
-    league2.addGame(game)
-
-    res.append(league2)
-
-    return res
-
-
-
-
-
-def testLS2():
-    res = []
-    league1 = DOM.League("1e provinciale")
-
-    date = DT.datetime(2015, 9, 15, 20, 30)
-    game = DOM.Game("avfteam1", "avfteam2", date, "sportshall")
-    league1.addGame(game)
-
-    date = DT.datetime(2015, 9, 16, 20, 30)
-    game = DOM.Game("avfteam1", "avfteam3", date, "sportshall")
-    league1.addGame(game)
-
-    date = DT.datetime(2015, 9, 16, 20, 30)
-    game = DOM.Game("avfteam2", "avfteam3", date, "sportshall")
-    league1.addGame(game)
-
-    res.append(league1)
 
     return res
